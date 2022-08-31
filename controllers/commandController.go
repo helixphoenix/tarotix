@@ -39,7 +39,20 @@ func (command CommandController) launchDailyTarot (evt *socketmode.Event, clt *s
 
 	clt.Ack(*evt.Request)
    
-    daily := 
+    daily := pickNCard(1)
+	msg := tarotMeanings[daily]
+
+	tarotix := clt.GetApiClient()
+	_, _, err := tarotix.PostMessage(
+		command.ChannelID, 
+		slack.MsgOptionText("You have very bright future"),
+
+	)
+
+	if err != nil {
+		log.Printf("Error while sending message", err)
+	}
+
 
 }
 
@@ -48,10 +61,17 @@ func pickNCard(n int ){
 	min := 0
 	max := 52
 
-	cards := []
-    for card := range n {
+	var cards []int
+    for i := 1; i< n+1; i++ {
 		card := rand.Intn(max-min)
-		cards = append(cards,card)
+		if card not in cards {
+			cards = append(cards,card)
+		}else{
+			card := rand.Intn(max-min)
+			cards = append(cards,card)
+
+		}
+
 	}
-    
+    return cards
 }
