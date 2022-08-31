@@ -22,8 +22,7 @@ func NewCommandController(eventhandler *socketmode.SocketmodeHandler) CommandCon
 	command.EventHandler.HandleSlashCommand("/daily", command.launchDailyTarot
  )
 
-    command.EventHandler.HandleInteractionBlockAction(views.DailyTarotActionID, command.launchDaily,
-	)
+
 
 	return command
 }
